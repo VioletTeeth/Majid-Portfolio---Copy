@@ -170,7 +170,7 @@
         .hero-buttons { 
             display: flex; 
             gap: 1rem; 
-            flex-wrap: wrap; /* Added to allow buttons to wrap on smaller screens */
+            flex-wrap: wrap;
             animation: fadeInUp 0.8s ease 0.4s both; 
         }
         .btn {
@@ -221,68 +221,55 @@
         .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -1px; }
         .section-subtitle { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        /* About Section */
+        /* About Section - Updated */
         .about { background: var(--bg-secondary); width: 100%; max-width: 100%; }
         .about-inner { max-width: 1400px; margin: 0 auto; }
-        .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
-        .about-image { position: sticky; top: 150px; }
-        .about-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 60px var(--shadow); }
-        .about-content h3 { font-size: 2rem; margin-bottom: 1.5rem; font-weight: 700; }
-        .about-content p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.05rem; }
-        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
-        .info-item { display: flex; align-items: center; gap: 1rem; }
-        .info-icon {
-            width: 50px; height: 50px; background: var(--bg-card); border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--primary); font-size: 1.3rem; border: 1px solid var(--border);
+        
+        .about-achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
         }
-        .info-text h4 { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.2rem; }
-        .info-text p { font-weight: 600; margin: 0; }
 
-        /* Achievements Section - Swipeable */
-        .achievements-wrapper { position: relative; overflow: hidden; }
-        .achievements-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem; transition: transform 0.3s ease;
+        .about-achievement-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
         }
-        .achievement-card {
-            background: var(--bg-card); padding: 2.5rem; border-radius: 20px;
-            border: 1px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden;
-            flex-shrink: 0;
-        }
-        .achievement-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-        }
-        .achievement-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px var(--shadow); border-color: var(--primary); }
-        .achievement-icon {
-            width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.8rem; margin-bottom: 1.5rem;
-        }
-        .achievement-card h3 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700; }
-        .achievement-card p { color: var(--text-secondary); line-height: 1.7; }
 
-        /* Expertise Section - Swipeable */
-        .expertise { background: var(--bg-secondary); width: 100%; max-width: 100%; }
-        .expertise-inner { max-width: 1400px; margin: 0 auto; }
-        .expertise-wrapper { position: relative; overflow: hidden; }
-        .expertise-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 2rem; transition: transform 0.3s ease;
+        .about-achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px var(--shadow);
+            border-color: var(--primary);
         }
-        .expertise-card {
-            background: var(--bg-card); padding: 2.5rem; border-radius: 20px;
-            border: 1px solid var(--border); transition: all 0.3s; flex-shrink: 0;
+
+        .about-achievement-card img {
+            width: 100%;
+            height: 400px;  /* Increased from 250px */
+            object-fit: cover;
+            display: block;
         }
-        .expertise-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px var(--shadow); border-color: var(--primary); }
-        .expertise-icon {
-            width: 60px; height: 60px; background: var(--bg-secondary); border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--primary); font-size: 2rem; margin-bottom: 1.5rem;
+
+        .about-achievement-content {
+            padding: 1.5rem 2rem 2rem;  /* Adjusted padding */
         }
-        .expertise-card h3 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700; }
-        .expertise-card p { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; }
+
+        .about-achievement-content h3 {
+            font-size: 1.4rem;  /* Slightly larger */
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .about-achievement-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
 
         /* Experience Section */
         .timeline { position: relative; max-width: 1000px; margin: 0 auto; }
@@ -320,6 +307,27 @@
         .timeline-points li::before {
             content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: bold;
         }
+
+        /* Expertise Section */
+        .expertise { background: var(--bg-secondary); width: 100%; max-width: 100%; }
+        .expertise-inner { max-width: 1400px; margin: 0 auto; }
+        .expertise-wrapper { position: relative; overflow: hidden; }
+        .expertise-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 2rem; transition: transform 0.3s ease;
+        }
+        .expertise-card {
+            background: var(--bg-card); padding: 2.5rem; border-radius: 20px;
+            border: 1px solid var(--border); transition: all 0.3s; flex-shrink: 0;
+        }
+        .expertise-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px var(--shadow); border-color: var(--primary); }
+        .expertise-icon {
+            width: 60px; height: 60px; background: var(--bg-secondary); border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 2rem; margin-bottom: 1.5rem;
+        }
+        .expertise-card h3 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700; }
+        .expertise-card p { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; }
 
         /* Education & Certificates Section */
         .education { background: var(--bg-secondary); width: 100%; max-width: 100%; padding: 6rem 0; }
@@ -438,30 +446,27 @@
             .hero-description { margin-left: auto; margin-right: auto; }
             .hero-buttons { justify-content: center; }
             .hero-image { order: -1; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; }
-            .about-image { position: relative; top: 0; max-width: 400px; margin: 0 auto; }
             .timeline::before { left: 0; }
             .timeline-item { width: 100%; left: 0 !important; padding-left: 3rem; text-align: left !important; }
             .timeline-dot { left: -10px !important; right: auto !important; }
             .timeline-company { justify-content: flex-start !important; }
             .timeline-points { text-align: left !important; }
-            .expertise-grid, .edu-grid, .cert-grid { grid-template-columns: 1fr; }
+            .expertise-grid, .edu-grid, .cert-grid, .about-achievements-grid { grid-template-columns: 1fr; }
             
             /* Mobile Swipeable Sections */
-            .achievements-grid, .expertise-grid, .cert-grid {
+            .expertise-grid, .cert-grid {
                 display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
                 gap: 1.5rem; padding: 0 5% 2rem;
             }
-            .achievements-grid::-webkit-scrollbar, .expertise-grid::-webkit-scrollbar, .cert-grid::-webkit-scrollbar { display: none; }
-            .achievement-card, .expertise-card, .cert-card { min-width: 85vw; max-width: 85vw; scroll-snap-align: center; }
+            .expertise-grid::-webkit-scrollbar, .cert-grid::-webkit-scrollbar { display: none; }
+            .expertise-card, .cert-card { min-width: 85vw; max-width: 85vw; scroll-snap-align: center; }
             .swipe-dots { display: flex; }
             .cert-banner-full { height: 350px; }
             .nav-links { display: none; }
         }
         @media (max-width: 640px) {
             .stats-grid { grid-template-columns: 1fr; }
-            .info-grid { grid-template-columns: 1fr; }
             .contact-form { padding: 2rem 1.5rem; }
         }
     </style>
@@ -470,13 +475,12 @@
 
     <!-- Navigation -->
     <nav>
-        <div class="logo">MAJED  Ahmed AL JABRI</div>
+        <div class="logo">MAJED AL JABRI</div>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
-            <a href="#achievements">Achievements</a>
-            <a href="#expertise">Expertise</a>
             <a href="#experience">Experience</a>
+            <a href="#expertise">Expertise</a>
             <a href="#education">Education & Certificates</a>
             <a href="#contact">Contact</a>
         </div>
@@ -493,7 +497,7 @@
                     <div class="hero-badge"><i class="fas fa-award"></i><span>MBA</span></div>
                     <div class="hero-badge"><i class="fas fa-award"></i><span>PMP</span></div>
                 </div>
-                <h1>General Manager <span>of Project Planning & Control</span></h1>
+                <h1>General Manager of Project Planning & <span>Control</span></h1>
                 <p class="hero-secondary-title">Acting Interface Management Director</p>
                 <p class="hero-subtitle">Riyadh Airports Company</p>
                 <p class="hero-description">
@@ -502,14 +506,11 @@
                     organizational excellence through innovative PMO frameworks and 
                     advanced analytics.
                 </p>
-                
-                <!-- UPDATED BUTTONS WITH DOWNLOAD RESUME -->
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
-                    <a href="Majed_Al_Jabri_Resume.pdf" download class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Download Resume</a>
+                    <a href="Majed_Al_Jabri_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fas fa-file-pdf"></i> View Resume</a>
                     <a href="#experience" class="btn btn-secondary"><i class="fas fa-briefcase"></i> View Experience</a>
                 </div>
-
                 <div class="stats-grid">
                     <div class="stat-card"><span class="stat-number">20+</span><div class="stat-label">Years Experience</div></div>
                     <div class="stat-card"><span class="stat-number">50+</span><div class="stat-label">Projects Delivered</div></div>
@@ -524,7 +525,7 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section - UPDATED -->
     <section class="about" id="about">
         <div class="about-inner">
             <div class="section-header fade-in">
@@ -532,124 +533,33 @@
                 <h2 class="section-title">Driving Excellence in Project Management</h2>
                 <p class="section-subtitle">Committed to implementing distinguished management practices and creating achievements through innovative strategies</p>
             </div>
-            <div class="about-grid">
-                <div class="about-image fade-in">
-                    <img src="AboutIMG.jpg" alt="Professional">
+            
+            <div class="about-achievements-grid fade-in">
+                <div class="about-achievement-card">
+                    <img src="AboutIMG.jpg" alt="Future Projects Forum">
+                    <div class="about-achievement-content">
+                        <h3>Future Projects Forum Leadership</h3>
+                        <p>Led RAC's participation in the Future Projects Forum 2024. Served as company spokesman, presenting key projects and strengthening contractor relationships.</p>
+                    </div>
                 </div>
-                <div class="about-content fade-in">
-                    <h3>Strategic Project Management Leader</h3>
-                    <p>Aims and plans to implement distinguished management, gain extensive experiences, and create achievements by bringing up out-of-the-box ideas. Seeking opportunities to add value to assignments related to technical and engineering domains.</p>
-                    <p>Striving to achieve higher levels of success regarding new technology strategies throughout my career. Fully conversant in Portfolio, Programs & Project Management methodologies including Agile, PMP-PMI, and P3O frameworks.</p>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="info-text"><h4>Location</h4><p>Riyadh, Saudi Arabia</p></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-icon"><i class="fas fa-building"></i></div>
-                            <div class="info-text"><h4>Company</h4><p>Riyadh Airports Company</p></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-icon"><i class="fas fa-graduation-cap"></i></div>
-                            <div class="info-text"><h4>Education</h4><p>MBA - Project Management</p></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-icon"><i class="fas fa-certificate"></i></div>
-                            <div class="info-text"><h4>Certification</h4><p>PMP, GRC, Six Sigma</p></div>
-                        </div>
+    
+                <div class="about-achievement-card">
+                    <img src="P3M3.png" alt="P3M3 Achievement">
+                    <div class="about-achievement-content">
+                        <h3>P3M3 Level 4 Achievement</h3>
+                        <p>Led RAC to achieve Level 4 in P3M3, making it the first aviation organization in the Middle East to reach this milestone in project management maturity.</p>
+                    </div>
+                </div>
+    
+                <div class="about-achievement-card">
+                    <img src="reward.jpg" alt="Guinness World Record">
+                    <div class="about-achievement-content">
+                        <h3>Guinness World Record Achievement</h3>
+                        <p>Led the team to achieve a Guinness World Record using 2,560 safety helmets. This milestone followed 25 million safe working hours at King Khalid International Airport.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section id="achievements">
-        <div class="section-header fade-in">
-            <span class="section-tag">Key Achievements</span>
-            <h2 class="section-title">Major Accomplishments</h2>
-            <p class="section-subtitle">Transforming organizations through strategic project leadership and innovation</p>
-        </div>
-        <div class="achievements-wrapper fade-in">
-            <div class="achievements-grid">
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-project-diagram"></i></div>
-                    <h3>PMO Establishment</h3>
-                    <p>Successfully established and managed enterprise PMOs with governance frameworks, PMM development, stage-gate processes, and performance dashboards using Power BI across multiple organizations.</p>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-digital-tachograph"></i></div>
-                    <h3>Digital Transformation</h3>
-                    <p>Led comprehensive PMIS implementation, ERP upgrades (Oracle), process digitization, and created paperless libraries for instant processing, transforming project lifecycle management.</p>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Portfolio Management</h3>
-                    <p>Managed strategic portfolio planning, execution, stakeholder management, and benefits realization using Agile & PMP-PMI methodologies, delivering 50+ major projects successfully.</p>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-cogs"></i></div>
-                    <h3>Process Improvement</h3>
-                    <p>Implemented Six Sigma methodologies to reduce cycle times, eliminate non-value steps, reduce costs, and increase quality across organizational processes.</p>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-users-cog"></i></div>
-                    <h3>Team Leadership</h3>
-                    <p>Built and managed high-performance teams, developed TNA programs, coaching initiatives, staff deployment strategies, and successful Saudization programs.</p>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Governance & Risk</h3>
-                    <p>Developed comprehensive policies, procedures, RACI matrices, risk management frameworks, compliance systems, and GRC implementation strategies.</p>
-                </div>
-            </div>
-        </div>
-        <div class="swipe-dots" id="achievements-dots"></div>
-    </section>
-
-    <!-- Expertise Section -->
-    <section class="expertise" id="expertise">
-        <div class="expertise-inner">
-            <div class="section-header fade-in">
-                <span class="section-tag">Core Expertise</span>
-                <h2 class="section-title">Comprehensive project management and engineering leadership capabilities</h2>
-            </div>
-            <div class="expertise-wrapper fade-in">
-                <div class="expertise-grid">
-                    <div class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-sitemap"></i></div>
-                        <h3>PMO Establishment</h3>
-                        <p>Setting up and managing enterprise PMOs with governance frameworks, PMM development, stage-gate processes, and performance dashboards using Power BI.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-laptop-code"></i></div>
-                        <h3>Digital Transformation</h3>
-                        <p>Leading PMIS implementation, ERP upgrades (Oracle), process digitization, and creating paperless libraries for instant processing.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Portfolio Management</h3>
-                        <p>Strategic portfolio planning, execution, stakeholder management, and benefits realization using Agile & PMP-PMI methodologies.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
-                        <h3>Process Improvement</h3>
-                        <p>Implementing Six Sigma methodologies to reduce cycle times, eliminate non-value steps, reduce costs, and increase quality.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-users"></i></div>
-                        <h3>Team Leadership</h3>
-                        <p>Building and managing high-performance teams, TNA development, coaching, staff deployment, and Saudization programs.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3>Governance & Risk</h3>
-                        <p>Developing policies, procedures, RACI matrices, risk management, compliance frameworks, and GRC implementation.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="swipe-dots" id="expertise-dots"></div>
     </section>
 
     <!-- Experience Section -->
@@ -754,6 +664,51 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section class="expertise" id="expertise">
+        <div class="expertise-inner">
+            <div class="section-header fade-in">
+                <span class="section-tag">Core Expertise</span>
+                <h2 class="section-title">Comprehensive project management and engineering leadership capabilities</h2>
+            </div>
+            <div class="expertise-wrapper fade-in">
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-sitemap"></i></div>
+                        <h3>PMO Establishment</h3>
+                        <p>Setting up and managing enterprise PMOs with governance frameworks, PMM development, stage-gate processes, and performance dashboards using Power BI.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Digital Transformation</h3>
+                        <p>Leading PMIS implementation, ERP upgrades (Oracle), process digitization, and creating paperless libraries for instant processing.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Portfolio Management</h3>
+                        <p>Strategic portfolio planning, execution, stakeholder management, and benefits realization using Agile & PMP-PMI methodologies.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>Process Improvement</h3>
+                        <p>Implementing Six Sigma methodologies to reduce cycle times, eliminate non-value steps, reduce costs, and increase quality.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-users"></i></div>
+                        <h3>Team Leadership</h3>
+                        <p>Building and managing high-performance teams, TNA development, coaching, staff deployment, and Saudization programs.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Governance & Risk</h3>
+                        <p>Developing policies, procedures, RACI matrices, risk management, compliance frameworks, and GRC implementation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swipe-dots" id="expertise-dots"></div>
     </section>
 
     <!-- Education & Certificates Section -->
@@ -977,7 +932,6 @@
 
         function initSwipes() {
             if (window.innerWidth <= 968) {
-                initSwipeSection('.achievements-grid', '#achievements-dots');
                 initSwipeSection('.expertise-grid', '#expertise-dots');
                 initSwipeSection('.cert-grid', '#cert-dots');
             }
