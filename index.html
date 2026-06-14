@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eng. Majed Al Jabri | GM Engineering & Projects Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #151515;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #2a2a2a;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        [data-theme="light"] nav { background: rgba(255, 255, 255, 0.8); }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--primary); transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--primary); transform: scale(1.05); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -50%; right: -20%; width: 800px; height: 800px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.1; animation: float 20s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, -30px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 1400px; margin: 0 auto; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; width: 100%;
+        }
+
+        .hero-badges { display: flex; gap: 1rem; margin-bottom: 2rem; animation: fadeInUp 0.8s ease 0.1s both; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--bg-card); border: 1px solid var(--border);
+            padding: 0.5rem 1.2rem; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600; color: var(--primary);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800;
+            line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero-secondary-title {
+            font-size: 1.3rem; color: var(--text-secondary);
+            margin-bottom: 1rem; font-weight: 500; animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .hero-subtitle {
+            font-size: 1.3rem; color: var(--primary);
+            margin-bottom: 1.5rem; font-weight: 600; animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .hero-description {
+            font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2.5rem;
+            max-width: 600px; animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .hero-buttons { 
+            display: flex; 
+            gap: 1rem; 
+            flex-wrap: wrap; /* Added to allow buttons to wrap on smaller screens */
+            animation: fadeInUp 0.8s ease 0.4s both; 
+        }
+        .btn {
+            padding: 1rem 2rem; border-radius: 50px; font-weight: 600;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: all 0.3s; cursor: pointer; border: none; font-size: 1rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(37, 99, 235, 0.4); }
+        .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--primary); transform: translateY(-3px); }
+
+        .hero-image { position: relative; animation: fadeInUp 0.8s ease 0.5s both; }
+        .hero-image-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; }
+        .hero-image-container::before {
+            content: ''; position: absolute; top: -20px; left: -20px; right: 20px; bottom: 20px;
+            border: 3px solid var(--primary); border-radius: 20px; z-index: -1;
+        }
+        .hero-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 60px var(--shadow); }
+
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+            margin-top: 4rem; animation: fadeInUp 0.8s ease 0.6s both;
+        }
+        .stat-card {
+            background: var(--bg-card); padding: 2rem; border-radius: 15px;
+            border: 1px solid var(--border); text-align: center; transition: transform 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-number {
+            font-size: 2.5rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;
+        }
+        .stat-label { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; }
+
+        /* Section Styles */
+        section { padding: 6rem 5%; max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-tag {
+            display: inline-block; background: var(--bg-card); color: var(--primary);
+            padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600;
+            font-size: 0.9rem; margin-bottom: 1rem; border: 1px solid var(--border);
+        }
+        .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -1px; }
+        .section-subtitle { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* About Section */
+        .about { background: var(--bg-secondary); width: 100%; max-width: 100%; }
+        .about-inner { max-width: 1400px; margin: 0 auto; }
+        .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+        .about-image { position: sticky; top: 150px; }
+        .about-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 60px var(--shadow); }
+        .about-content h3 { font-size: 2rem; margin-bottom: 1.5rem; font-weight: 700; }
+        .about-content p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.05rem; }
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .info-item { display: flex; align-items: center; gap: 1rem; }
+        .info-icon {
+            width: 50px; height: 50px; background: var(--bg-card); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1.3rem; border: 1px solid var(--border);
+        }
+        .info-text h4 { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.2rem; }
+        .info-text p { font-weight: 600; margin: 0; }
+
+        /* Achievements Section - Swipeable */
+        .achievements-wrapper { position: relative; overflow: hidden; }
+        .achievements-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem; transition: transform 0.3s ease;
+        }
+        .achievement-card {
+            background: var(--bg-card); padding: 2.5rem; border-radius: 20px;
+            border: 1px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden;
+            flex-shrink: 0;
+        }
+        .achievement-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        .achievement-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px var(--shadow); border-color: var(--primary); }
+        .achievement-icon {
+            width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.8rem; margin-bottom: 1.5rem;
+        }
+        .achievement-card h3 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700; }
+        .achievement-card p { color: var(--text-secondary); line-height: 1.7; }
+
+        /* Expertise Section - Swipeable */
+        .expertise { background: var(--bg-secondary); width: 100%; max-width: 100%; }
+        .expertise-inner { max-width: 1400px; margin: 0 auto; }
+        .expertise-wrapper { position: relative; overflow: hidden; }
+        .expertise-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 2rem; transition: transform 0.3s ease;
+        }
+        .expertise-card {
+            background: var(--bg-card); padding: 2.5rem; border-radius: 20px;
+            border: 1px solid var(--border); transition: all 0.3s; flex-shrink: 0;
+        }
+        .expertise-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px var(--shadow); border-color: var(--primary); }
+        .expertise-icon {
+            width: 60px; height: 60px; background: var(--bg-secondary); border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 2rem; margin-bottom: 1.5rem;
+        }
+        .expertise-card h3 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700; }
+        .expertise-card p { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; }
+
+        /* Experience Section */
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; }
+        .timeline::before {
+            content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+            width: 2px; height: 100%; background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        .timeline-item { margin-bottom: 3rem; position: relative; width: 50%; padding: 0 3rem; }
+        .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; }
+        .timeline-dot {
+            position: absolute; width: 20px; height: 20px; background: var(--primary);
+            border-radius: 50%; top: 0; box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px var(--primary);
+        }
+        .timeline-item:nth-child(odd) .timeline-dot { right: -10px; }
+        .timeline-item:nth-child(even) .timeline-dot { left: -10px; }
+        .timeline-content {
+            background: var(--bg-card); padding: 2rem; border-radius: 15px;
+            border: 1px solid var(--border); transition: transform 0.3s;
+        }
+        .timeline-content:hover { transform: translateY(-5px); box-shadow: 0 10px 40px var(--shadow); }
+        .timeline-date { color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .timeline-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .timeline-company {
+            color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .timeline-item:nth-child(odd) .timeline-company { justify-content: flex-end; }
+        .timeline-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
+        .timeline-points { list-style: none; text-align: left; }
+        .timeline-points li {
+            padding: 0.5rem 0; padding-left: 1.5rem; position: relative;
+            color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;
+        }
+        .timeline-points li::before {
+            content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: bold;
+        }
+
+        /* Education & Certificates Section */
+        .education { background: var(--bg-secondary); width: 100%; max-width: 100%; padding: 6rem 0; }
+        .education-inner { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+        
+        /* Full Width Cert Banner */
+        .cert-banner-full {
+            position: relative; width: 100%; height: 450px; overflow: hidden; margin: 4rem 0;
+        }
+        .cert-banner-full img { width: 100%; height: 100%; object-fit: cover; }
+        .cert-banner-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 2rem;
+        }
+        .cert-banner-overlay .section-tag {
+            background: rgba(255, 255, 255, 0.15); color: white; border-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px); margin-bottom: 1.5rem;
+        }
+        .cert-banner-overlay h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; color: white; font-weight: 800; letter-spacing: -1px;
+        }
+        .cert-banner-overlay p { font-size: 1.2rem; color: rgba(255, 255, 255, 0.8); max-width: 700px; }
+        
+        .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 4rem; }
+        .edu-card {
+            background: var(--bg-card); padding: 2.5rem; border-radius: 20px;
+            border: 1px solid var(--border); position: relative; transition: all 0.3s;
+        }
+        .edu-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px var(--shadow); border-color: var(--primary); }
+        .edu-icon {
+            width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .edu-year {
+            position: absolute; top: 2rem; right: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 0.4rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem;
+        }
+        .edu-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; font-weight: 700; margin-top: 0.5rem; }
+        .edu-school { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .edu-degree { color: var(--primary); font-weight: 600; font-size: 0.9rem; }
+
+        /* Certifications - Swipeable */
+        .cert-wrapper { position: relative; overflow: hidden; }
+        .cert-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; transition: transform 0.3s ease;
+        }
+        .cert-card {
+            background: var(--bg-card); padding: 2.5rem; border-radius: 20px;
+            border: 1px solid var(--border); transition: all 0.3s; flex-shrink: 0;
+        }
+        .cert-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px var(--shadow); border-color: var(--primary); }
+        .cert-icon {
+            width: 60px; height: 60px; background: var(--bg-secondary); border: 1px solid var(--border);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem; padding: 0; overflow: hidden;
+        }
+        .cert-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .cert-card h4 { font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 700; }
+        .cert-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+
+        /* Contact Section */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
+        .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+        .contact-card {
+            background: var(--bg-card); padding: 2rem; border-radius: 15px;
+            border: 1px solid var(--border); display: flex; align-items: flex-start; gap: 1.5rem; transition: all 0.3s;
+        }
+        .contact-card:hover { transform: translateX(10px); border-color: var(--primary); }
+        .contact-icon {
+            width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.3rem; flex-shrink: 0;
+        }
+        .contact-details h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .contact-details p { color: var(--text-secondary); font-size: 0.95rem; }
+        .contact-form { background: var(--bg-card); padding: 3rem; border-radius: 20px; border: 1px solid var(--border); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-secondary); }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 1rem; background: var(--bg-secondary); border: 1px solid var(--border);
+            border-radius: 10px; color: var(--text-primary); font-family: inherit; font-size: 1rem; transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { resize: vertical; min-height: 150px; }
+
+        /* Footer */
+        footer { background: var(--bg-secondary); padding: 3rem 5%; text-align: center; border-top: 1px solid var(--border); width: 100%; max-width: 100%; }
+        .footer-content { max-width: 1400px; margin: 0 auto; }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+        .social-links a {
+            width: 50px; height: 50px; background: var(--bg-card); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: var(--text-primary);
+            font-size: 1.3rem; border: 1px solid var(--border); transition: all 0.3s;
+        }
+        .social-links a:hover { background: var(--primary); color: white; transform: translateY(-5px); border-color: var(--primary); }
+        .footer-text { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Swipe Navigation Dots */
+        .swipe-dots { display: none; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+        .swipe-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.3s; }
+        .swipe-dot.active { background: var(--primary); width: 30px; border-radius: 5px; }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-badges { justify-content: center; }
+            .hero-description { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-image { order: -1; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .about-image { position: relative; top: 0; max-width: 400px; margin: 0 auto; }
+            .timeline::before { left: 0; }
+            .timeline-item { width: 100%; left: 0 !important; padding-left: 3rem; text-align: left !important; }
+            .timeline-dot { left: -10px !important; right: auto !important; }
+            .timeline-company { justify-content: flex-start !important; }
+            .timeline-points { text-align: left !important; }
+            .expertise-grid, .edu-grid, .cert-grid { grid-template-columns: 1fr; }
+            
+            /* Mobile Swipeable Sections */
+            .achievements-grid, .expertise-grid, .cert-grid {
+                display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
+                gap: 1.5rem; padding: 0 5% 2rem;
+            }
+            .achievements-grid::-webkit-scrollbar, .expertise-grid::-webkit-scrollbar, .cert-grid::-webkit-scrollbar { display: none; }
+            .achievement-card, .expertise-card, .cert-card { min-width: 85vw; max-width: 85vw; scroll-snap-align: center; }
+            .swipe-dots { display: flex; }
+            .cert-banner-full { height: 350px; }
+            .nav-links { display: none; }
+        }
+        @media (max-width: 640px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .contact-form { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MAJED  Ahmed AL JABRI</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education & Certificates</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badges">
+                    <div class="hero-badge"><i class="fas fa-award"></i><span>MBA</span></div>
+                    <div class="hero-badge"><i class="fas fa-award"></i><span>PMP</span></div>
+                </div>
+                <h1>General Manager <span>of Project Planning & Control</span></h1>
+                <p class="hero-secondary-title">Acting Interface Management Director</p>
+                <p class="hero-subtitle">Riyadh Airports Company</p>
+                <p class="hero-description">
+                    Strategic leader with 20+ years of experience in project management, 
+                    portfolio optimization, and digital transformation. Expert in driving 
+                    organizational excellence through innovative PMO frameworks and 
+                    advanced analytics.
+                </p>
+                
+                <!-- UPDATED BUTTONS WITH DOWNLOAD RESUME -->
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+                    <a href="Majed_Al_Jabri_Resume.pdf" download class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Download Resume</a>
+                    <a href="#experience" class="btn btn-secondary"><i class="fas fa-briefcase"></i> View Experience</a>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card"><span class="stat-number">20+</span><div class="stat-label">Years Experience</div></div>
+                    <div class="stat-card"><span class="stat-number">50+</span><div class="stat-label">Projects Delivered</div></div>
+                    <div class="stat-card"><span class="stat-number">6</span><div class="stat-label">Clusters Managed</div></div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-container">
+                    <img src="profile.jpg" alt="Eng. Majed Al Jabri">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-inner">
+            <div class="section-header fade-in">
+                <span class="section-tag">About Me</span>
+                <h2 class="section-title">Driving Excellence in Project Management</h2>
+                <p class="section-subtitle">Committed to implementing distinguished management practices and creating achievements through innovative strategies</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-image fade-in">
+                    <img src="AboutIMG.jpg" alt="Professional">
+                </div>
+                <div class="about-content fade-in">
+                    <h3>Strategic Project Management Leader</h3>
+                    <p>Aims and plans to implement distinguished management, gain extensive experiences, and create achievements by bringing up out-of-the-box ideas. Seeking opportunities to add value to assignments related to technical and engineering domains.</p>
+                    <p>Striving to achieve higher levels of success regarding new technology strategies throughout my career. Fully conversant in Portfolio, Programs & Project Management methodologies including Agile, PMP-PMI, and P3O frameworks.</p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-text"><h4>Location</h4><p>Riyadh, Saudi Arabia</p></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-building"></i></div>
+                            <div class="info-text"><h4>Company</h4><p>Riyadh Airports Company</p></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="info-text"><h4>Education</h4><p>MBA - Project Management</p></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-certificate"></i></div>
+                            <div class="info-text"><h4>Certification</h4><p>PMP, GRC, Six Sigma</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements">
+        <div class="section-header fade-in">
+            <span class="section-tag">Key Achievements</span>
+            <h2 class="section-title">Major Accomplishments</h2>
+            <p class="section-subtitle">Transforming organizations through strategic project leadership and innovation</p>
+        </div>
+        <div class="achievements-wrapper fade-in">
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>PMO Establishment</h3>
+                    <p>Successfully established and managed enterprise PMOs with governance frameworks, PMM development, stage-gate processes, and performance dashboards using Power BI across multiple organizations.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-digital-tachograph"></i></div>
+                    <h3>Digital Transformation</h3>
+                    <p>Led comprehensive PMIS implementation, ERP upgrades (Oracle), process digitization, and created paperless libraries for instant processing, transforming project lifecycle management.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Portfolio Management</h3>
+                    <p>Managed strategic portfolio planning, execution, stakeholder management, and benefits realization using Agile & PMP-PMI methodologies, delivering 50+ major projects successfully.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Process Improvement</h3>
+                    <p>Implemented Six Sigma methodologies to reduce cycle times, eliminate non-value steps, reduce costs, and increase quality across organizational processes.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-users-cog"></i></div>
+                    <h3>Team Leadership</h3>
+                    <p>Built and managed high-performance teams, developed TNA programs, coaching initiatives, staff deployment strategies, and successful Saudization programs.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Governance & Risk</h3>
+                    <p>Developed comprehensive policies, procedures, RACI matrices, risk management frameworks, compliance systems, and GRC implementation strategies.</p>
+                </div>
+            </div>
+        </div>
+        <div class="swipe-dots" id="achievements-dots"></div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section class="expertise" id="expertise">
+        <div class="expertise-inner">
+            <div class="section-header fade-in">
+                <span class="section-tag">Core Expertise</span>
+                <h2 class="section-title">Comprehensive project management and engineering leadership capabilities</h2>
+            </div>
+            <div class="expertise-wrapper fade-in">
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-sitemap"></i></div>
+                        <h3>PMO Establishment</h3>
+                        <p>Setting up and managing enterprise PMOs with governance frameworks, PMM development, stage-gate processes, and performance dashboards using Power BI.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Digital Transformation</h3>
+                        <p>Leading PMIS implementation, ERP upgrades (Oracle), process digitization, and creating paperless libraries for instant processing.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Portfolio Management</h3>
+                        <p>Strategic portfolio planning, execution, stakeholder management, and benefits realization using Agile & PMP-PMI methodologies.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>Process Improvement</h3>
+                        <p>Implementing Six Sigma methodologies to reduce cycle times, eliminate non-value steps, reduce costs, and increase quality.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-users"></i></div>
+                        <h3>Team Leadership</h3>
+                        <p>Building and managing high-performance teams, TNA development, coaching, staff deployment, and Saudization programs.</p>
+                    </div>
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Governance & Risk</h3>
+                        <p>Developing policies, procedures, RACI matrices, risk management, compliance frameworks, and GRC implementation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swipe-dots" id="expertise-dots"></div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header fade-in">
+            <span class="section-tag">Career Path</span>
+            <h2 class="section-title">Professional Experience</h2>
+            <p class="section-subtitle">A progressive career spanning over two decades in project management and engineering</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2024 - Present</div>
+                    <h3 class="timeline-title">Planning & Controlling GM</h3>
+                    <div class="timeline-company"><i class="fas fa-plane"></i> Riyadh Airports Company (RAC)</div>
+                    <p class="timeline-desc">Leading Engineering and Projects Management Group with strategic oversight of portfolio delivery and digital transformation.</p>
+                    <ul class="timeline-points">
+                        <li>Adopting project management policies, procedures, and governance frameworks</li>
+                        <li>Publishing Project Management Manual (PMM) and launching PMIS system</li>
+                        <li>Completing strategic targeted projects and achieving departmental KPIs</li>
+                        <li>Implementing Power BI dashboards for project monitoring</li>
+                        <li>Developing Value Engineering Manual with RACI Matrix</li>
+                        <li>Reviewing Local and National Master Plans for expansion projects</li>
+                        <li>Budget contribution and financial performance monitoring</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2017 - 2022</div>
+                    <h3 class="timeline-title">PMO Manager</h3>
+                    <div class="timeline-company"><i class="fas fa-tint"></i> National Water Company, HQ Riyadh</div>
+                    <p class="timeline-desc">Established and managed enterprise PMO with governance standards and digital initiatives.</p>
+                    <ul class="timeline-points">
+                        <li>Turnaround of distressed PMO offices and management of 6-cluster operations</li>
+                        <li>Implementing governance PMM standards in matrix organizations</li>
+                        <li>Managing portfolio planning, milestone tracking, and KPI dashboards</li>
+                        <li>Leading digitization initiatives in ERP and Oracle upgrades</li>
+                        <li>Resource capacity planning and third-party supplier management</li>
+                        <li>Earned Value tracking and budget spend reporting</li>
+                        <li>Risk identification and mitigation planning</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2017 - 2022</div>
+                    <h3 class="timeline-title">Senior Project Engineer</h3>
+                    <div class="timeline-company"><i class="fas fa-tint"></i> National Water Company</div>
+                    <p class="timeline-desc">Quality assurance and compliance management for project delivery.</p>
+                    <ul class="timeline-points">
+                        <li>Developing quality assurance policies and procedures</li>
+                        <li>Site visits for compliance with policies and standards</li>
+                        <li>Lessons learned system development</li>
+                        <li>Continuous improvement of communication streams</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2011 - 2015</div>
+                    <h3 class="timeline-title">Mechanical Engineer</h3>
+                    <div class="timeline-company"><i class="fas fa-hospital"></i> National Guard Health Affairs (KAMC)</div>
+                    <p class="timeline-desc">Facility management and capital projects planning for healthcare infrastructure.</p>
+                    <ul class="timeline-points">
+                        <li>Annual capital projects planning and implementation</li>
+                        <li>Operation & Maintenance of Powerhouse and emergency generators</li>
+                        <li>Water systems management (chilled, potable, irrigation & RO)</li>
+                        <li>HVAC systems and recreation equipment maintenance</li>
+                        <li>Saudization program promotion and workforce planning</li>
+                        <li>Budget participation and cost estimation analysis</li>
+                        <li>Staff training and familiarization programs</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2008 - 2011</div>
+                    <h3 class="timeline-title">Supervisor, Water Treatment Plant</h3>
+                    <div class="timeline-company"><i class="fas fa-hospital"></i> National Guard Health Affairs (KAMC)</div>
+                    <p class="timeline-desc">Supervision of water treatment operations and maintenance activities.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2002 - 2008</div>
+                    <h3 class="timeline-title">Maintenance & Technical Technician</h3>
+                    <div class="timeline-company"><i class="fas fa-industry"></i> Saudi ARAMCO Company, Haradh Gas Plant</div>
+                    <p class="timeline-desc">Rotational work across multiple units including Gas Turbines, Condensate, Stabilizer, and Utility units.</p>
+                    <ul class="timeline-points">
+                        <li>Troubleshooting rotating equipment (Pumps, Compressors, Motors)</li>
+                        <li>Testing and overhauling water systems</li>
+                        <li>Preventive maintenance procedures</li>
+                        <li>Oracle & SAP system operations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certificates Section -->
+    <section class="education" id="education">
+        <div class="education-inner">
+            <div class="section-header fade-in">
+                <span class="section-tag">Academic Background</span>
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">Strong academic foundation in engineering and business management</p>
+            </div>
+            <div class="edu-grid">
+                <div class="edu-card fade-in">
+                    <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <span class="edu-year">2011</span>
+                    <h3>Master of Business Administration</h3>
+                    <p class="edu-school">Arab East Colleges</p>
+                    <p class="edu-degree">Specialization: Project Management</p>
+                </div>
+                <div class="edu-card fade-in">
+                    <div class="edu-icon"><i class="fas fa-university"></i></div>
+                    <span class="edu-year">2008</span>
+                    <h3>Bachelor Degree</h3>
+                    <p class="edu-school">College of Technology</p>
+                    <p class="edu-degree">Mechanical Engineering Technology</p>
+                </div>
+                <div class="edu-card fade-in">
+                    <div class="edu-icon"><i class="fas fa-school"></i></div>
+                    <span class="edu-year">2002</span>
+                    <h3>Associate Degree (TVTC)</h3>
+                    <p class="edu-school">College of Technology</p>
+                    <p class="edu-degree">Mechanical Technology</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cert-banner-full fade-in">
+            <img src="harvard-group.jpg" alt="Executive Education">
+            <div class="cert-banner-overlay">
+                <span class="section-tag">Credentials</span>
+                <h2>Certifications & Training</h2>
+                <p>Industry-recognized certifications and specialized training programs</p>
+            </div>
+        </div>
+
+        <div class="education-inner">
+            <div class="cert-wrapper fade-in">
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-finance.png" alt="Finance Icon"></div>
+                        <h4>Finance for non-Finance</h4>
+                        <p>London Business School (Nov 2024)<br>Financial Analysis · Corporate Finance</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-leadership.png" alt="Leadership Icon"></div>
+                        <h4>Exercising Leadership</h4>
+                        <p>Harvard University (Sep 2025)<br>Team Leadership · Executive Leadership</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-oxford.png" alt="Oxford Icon"></div>
+                        <h4>Advanced Leadership Skills</h4>
+                        <p>University of Oxford (Oct 2025)<br>Future-ready Insights, Model and Practice</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-pmp.png" alt="PMP Icon"></div>
+                        <h4>Project Management Professional (PMP)</h4>
+                        <p>PMI Certification - Globally recognized project management credential</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-grc.png" alt="GRC Icon"></div>
+                        <h4>Governance, Risk and Compliance (GRC)</h4>
+                        <p>Enterprise governance and risk management framework</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-sgp.png" alt="SGP Icon"></div>
+                        <h4>Stage Gate Process (SGP)</h4>
+                        <p>Structured project delivery methodology</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-npmo.png" alt="NPMO Icon"></div>
+                        <h4>Mashroat (NPMO)</h4>
+                        <p>National Program Management Office certification</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-itc.png" alt="ITC Icon"></div>
+                        <h4>Maintenance Machinist (ITC)</h4>
+                        <p>ARAMCO Training - Industrial technical certification</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><img src="icon-safety.png" alt="Safety Icon"></div>
+                        <h4>Safety Certifications</h4>
+                        <p>LP-Fire Safety, Emergency Planning, Fall Protection, Fire Prevention</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swipe-dots" id="cert-dots"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header fade-in">
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Let's Work Together</h2>
+            <p class="section-subtitle">Open to strategic opportunities in project management and engineering leadership</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-card fade-in">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-details"><h4>Email</h4><p>Majed78955@gmail.com</p></div>
+                </div>
+                <div class="contact-card fade-in">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contact-details"><h4>Phone</h4><p>+966 (55) 447-8955</p></div>
+                </div>
+                <div class="contact-card fade-in">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-details"><h4>Location</h4><p>Riyadh, Kingdom of Saudi Arabia</p></div>
+                </div>
+                <div class="contact-card fade-in">
+                    <div class="contact-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="contact-details"><h4>Current Position</h4><p>GM - Engineering & Projects Management<br>Riyadh Airports Company</p></div>
+                </div>
+            </div>
+            <div class="contact-form fade-in">
+                <form>
+                    <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="Enter your name" required></div>
+                    <div class="form-group"><label for="email">Your Email</label><input type="email" id="email" name="email" placeholder="Enter your email" required></div>
+                    <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" placeholder="Enter subject" required></div>
+                    <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" placeholder="Enter your message" required></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:Majed78955@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="tel:+966554478955" title="Phone"><i class="fas fa-phone"></i></a>
+            </div>
+            <p class="footer-text">© 2024 Eng. Majed Ahmed S. Al Jabri. All Rights Reserved.<br>Planning & Controlling GM | PMP Certified | Digital Transformation Leader</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        }
+
+        // Scroll Animation
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Swipe Functionality for Mobile
+        function initSwipeSection(gridSelector, dotsSelector) {
+            const grid = document.querySelector(gridSelector);
+            const dotsContainer = document.querySelector(dotsSelector);
+            
+            if (!grid || window.innerWidth > 968) return;
+            
+            const cards = grid.querySelectorAll(':scope > div');
+            const totalCards = cards.length;
+            
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalCards; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'swipe-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    const cardWidth = cards[0].offsetWidth + 24;
+                    grid.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
+                });
+                dotsContainer.appendChild(dot);
+            }
+            
+            const dots = dotsContainer.querySelectorAll('.swipe-dot');
+            grid.addEventListener('scroll', () => {
+                const scrollLeft = grid.scrollLeft;
+                const cardWidth = cards[0].offsetWidth + 24;
+                const currentIndex = Math.round(scrollLeft / cardWidth);
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            });
+        }
+
+        function initSwipes() {
+            if (window.innerWidth <= 968) {
+                initSwipeSection('.achievements-grid', '#achievements-dots');
+                initSwipeSection('.expertise-grid', '#expertise-dots');
+                initSwipeSection('.cert-grid', '#cert-dots');
+            }
+        }
+
+        window.addEventListener('load', initSwipes);
+        window.addEventListener('resize', initSwipes);
+    </script>
+</body>
+</html>
