@@ -328,19 +328,13 @@
         .timeline-item:nth-child(odd) .timeline-dot { right: -7px; }
         .timeline-item:nth-child(even) .timeline-dot { left: -7px; }
         .timeline-content {
-            background: var(--bg-card); 
-            padding: 2.5rem; 
+            background: var(--bg-card);
+            padding: 2.5rem;
             border-radius: 16px;
-            border: 1px solid var(--border); 
+            border: 1px solid var(--border);
             transition: transform 0.3s;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            text-align: left !important;  /* <-- ADD THIS LINE */
-        }
-        .timeline-content .timeline-title,
-        .timeline-content .timeline-company,
-        .timeline-content .timeline-desc,
-        .timeline-content .timeline-points {
-            text-align: left !important;
+            text-align: left;
         }
 
         .timeline-content .timeline-title {
@@ -1095,12 +1089,12 @@
     <footer>
         <div class="footer-content">
             <div class="social-links">
-                <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.linkedin.com/in/majed-a-aljabri-mba-pmp%C2%AE-63b260115/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
                 <a href="mailto:Majed78955@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
                 <a href="tel:+966554478955" title="Phone"><i class="fas fa-phone"></i></a>
             </div>
-            <p class="footer-text">© 2024 Eng. Majed Ahmed S. Al Jabri. All Rights Reserved.<br>General Manager of Project Planning & Control | PMP Certified | Digital Transformation Leader</p>
+            <p class="footer-text">© <span id="footer-year"></span> Eng. Majed Ahmed S. Al Jabri. All Rights Reserved.<br>General Manager of Project Planning & Control | PMP Certified | Digital Transformation Leader</p>
         </div>
     </footer>
 
@@ -1136,6 +1130,9 @@
             });
         });
 
+        // Footer year
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
         // Form submission
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1147,12 +1144,12 @@
         function initSwipeSection(gridSelector, dotsSelector) {
             const grid = document.querySelector(gridSelector);
             const dotsContainer = document.querySelector(dotsSelector);
-            
+
             if (!grid || window.innerWidth > 968) return;
-            
+
             const cards = grid.querySelectorAll(':scope > div');
             const totalCards = cards.length;
-            
+
             dotsContainer.innerHTML = '';
             for (let i = 0; i < totalCards; i++) {
                 const dot = document.createElement('div');
@@ -1163,24 +1160,26 @@
                 });
                 dotsContainer.appendChild(dot);
             }
-            
+
             const dots = dotsContainer.querySelectorAll('.swipe-dot');
-            grid.addEventListener('scroll', () => {
+
+            if (grid._scrollHandler) {
+                grid.removeEventListener('scroll', grid._scrollHandler);
+            }
+            grid._scrollHandler = () => {
                 const scrollLeft = grid.scrollLeft;
                 const cardWidth = cards[0].offsetWidth + 24;
                 const currentIndex = Math.round(scrollLeft / cardWidth);
-                
                 dots.forEach((dot, index) => {
                     dot.classList.toggle('active', index === currentIndex);
                 });
-            });
+            };
+            grid.addEventListener('scroll', grid._scrollHandler);
         }
 
         function initSwipes() {
-            if (window.innerWidth <= 968) {
-                initSwipeSection('.expertise-grid', '#expertise-dots');
-                initSwipeSection('.cert-grid', '#cert-dots');
-            }
+            initSwipeSection('.expertise-grid', '#expertise-dots');
+            initSwipeSection('.cert-grid', '#cert-dots');
         }
 
         window.addEventListener('load', initSwipes);
